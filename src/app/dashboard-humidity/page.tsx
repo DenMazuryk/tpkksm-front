@@ -9,6 +9,7 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
+import {THumiditySensor} from "@/models/sensors/humidity-sensor";
 interface Reading {
     time: string;
     value: number;
@@ -24,7 +25,7 @@ export default function DashboardHumidity() {
                 const res = await fetch(`${apiUrl}/humidity-sensors`);
                 if (!res.ok) throw new Error("Error fetching data");
                 const data = await res.json();
-                const formatted = data.map((item: any) => ({
+                const formatted = data.map((item: THumiditySensor) => ({
                     time: new
                     Date(item.timestamp).toLocaleTimeString("uk-UA", {
                         hour: "2-digit",
@@ -58,7 +59,7 @@ export default function DashboardHumidity() {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" />
                             <YAxis domain={[30, 70]} unit="%" />
-                            <Tooltip formatter={(value: any) => `${Number(value).toFixed(1)}%`} />
+                            <Tooltip/>
                             <Line
                                 type="monotone"
                                 dataKey="value"

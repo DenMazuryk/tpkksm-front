@@ -9,6 +9,7 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
+import {TTemperatureSensor} from "@/models/sensors/temperature-sensor";
 interface Reading {
     time: string;
     value: number;
@@ -24,7 +25,7 @@ export default function DashboardTemp() {
                 const res = await fetch(`${apiUrl}/sensors`);
                 if (!res.ok) throw new Error("Error fetching data");
                 const data = await res.json();
-                const formatted = data.map((item: any) => ({
+                const formatted = data.map((item: TTemperatureSensor) => ({
                     time: new
                     Date(item.timestamp).toLocaleTimeString("uk-UA", {
                         hour: "2-digit",
